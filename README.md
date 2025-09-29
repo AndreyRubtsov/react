@@ -1,46 +1,148 @@
-# Getting Started with Create React App
+# Fullstack POC - React + Node.js
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A proof of concept fullstack application with React frontend and Node.js backend, all configured to run in a devcontainer.
 
-## Available Scripts
+## 🏗️ Project Structure
 
-In the project directory, you can run:
+```
+├── .devcontainer/          # Devcontainer configuration
+├── frontend/              # React application
+│   ├── src/
+│   ├── public/
+│   └── package.json
+├── backend/               # Node.js/Express API
+│   ├── server.js
+│   └── package.json
+├── package.json          # Root package.json with workspace scripts
+└── README.md
+```
 
-### `npm start`
+## 🚀 Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Prerequisites
+- Docker
+- VS Code with Dev Containers extension
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Setup
+1. Clone this repository
+2. Open in VS Code
+3. When prompted, click "Reopen in Container"
+4. Wait for the devcontainer to build and install dependencies
 
-### `npm test`
+### Running the Application
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Development Mode (Both Frontend & Backend)
+```bash
+npm run dev
+```
+This starts both the React frontend (port 3000) and Node.js backend (port 3001) concurrently.
 
-### `npm run build`
+#### Individual Services
+```bash
+# Frontend only
+npm run dev:frontend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Backend only  
+npm run dev:backend
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 📡 API Endpoints
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The backend provides the following endpoints:
 
-### `npm run eject`
+- `GET /` - Welcome message
+- `GET /api/health` - Health check
+- `GET /api/users` - Get all users
+- `GET /api/users/:id` - Get user by ID
+- `POST /api/users` - Create new user
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 🎯 Features
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Frontend (React)
+- Modern React with TypeScript
+- Beautiful gradient UI design
+- API integration with backend
+- User management interface
+- Real-time API status display
+- Responsive design
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Backend (Node.js/Express)
+- RESTful API endpoints
+- CORS enabled for frontend communication
+- Error handling middleware
+- Health check endpoint
+- Sample user data and operations
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### DevContainer
+- Pre-configured development environment
+- Auto-installs all dependencies
+- Port forwarding for both services
+- VS Code extensions for React and Node.js development
+- Thunder Client for API testing
 
-## Learn More
+## 🛠️ Available Scripts
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+# Development
+npm run dev                 # Start both frontend and backend
+npm run dev:frontend       # Start only React frontend
+npm run dev:backend        # Start only Node.js backend
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Production
+npm run start              # Start both in production mode
+npm run build              # Build React app for production
+
+# Maintenance
+npm run install:all        # Install dependencies for all projects
+npm run clean              # Remove all node_modules
+npm run lint               # Lint frontend code
+npm run lint:fix           # Fix linting issues
+npm run format             # Format code with Prettier
+```
+
+## 🌐 Ports
+
+- **Frontend (React)**: http://localhost:3000
+- **Backend (API)**: http://localhost:3001
+
+## 🧪 Testing the Setup
+
+1. Open http://localhost:3000 in your browser
+2. You should see the React frontend with API status
+3. Try creating a new user using the form
+4. Check the API directly at http://localhost:3001/api/users
+
+## 📝 Environment Variables
+
+### Frontend
+- `REACT_APP_API_URL` - Backend API URL (default: http://localhost:3001)
+
+### Backend
+- `PORT` - Server port (default: 3001)
+- `NODE_ENV` - Environment mode (default: development)
+
+## 🔧 Development Tips
+
+- Use Thunder Client extension to test API endpoints
+- Both frontend and backend support hot reloading
+- Check the VS Code terminal for logs from both services
+- The devcontainer includes all necessary extensions for development
+
+## 📦 Technologies Used
+
+### Frontend
+- React 19
+- TypeScript
+- CSS3 with modern features
+- Fetch API for HTTP requests
+
+### Backend
+- Node.js
+- Express.js
+- CORS middleware
+- dotenv for environment variables
+
+### DevOps
+- Docker devcontainer
+- Concurrently for running multiple processes
+- VS Code extensions for enhanced development experience

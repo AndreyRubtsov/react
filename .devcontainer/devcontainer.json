@@ -1,5 +1,5 @@
 {
-  "name": "React Development",
+  "name": "Fullstack React + Node.js Development",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
   
   // Features to add to the dev container. More info: https://containers.dev/features.
@@ -10,9 +10,22 @@
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   "forwardPorts": [3000, 3001],
+  "portsAttributes": {
+    "3000": {
+      "label": "React Frontend",
+      "onAutoForward": "notify"
+    },
+    "3001": {
+      "label": "Node.js Backend API",
+      "onAutoForward": "notify"
+    }
+  },
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "npm install",
+  "postCreateCommand": "npm install && cd frontend && npm install && cd ../backend && npm install",
+
+  // Use 'postStartCommand' to run commands after the container starts
+  "postStartCommand": "cd frontend && npm run build",
 
   // Configure tool-specific properties.
   "customizations": {
@@ -33,7 +46,10 @@
         "ms-vscode.vscode-typescript-next",
         "formulahendry.auto-rename-tag",
         "christian-kohler.path-intellisense",
-        "ms-vscode.vscode-json"
+        "ms-vscode.vscode-json",
+        "ms-vscode.vscode-node-debug2",
+        "ms-vscode.js-debug-nightly",
+        "rangav.vscode-thunder-client"
       ]
     }
   },
@@ -43,7 +59,8 @@
 
   // Set environment variables
   "containerEnv": {
-    "NODE_ENV": "development"
+    "NODE_ENV": "development",
+    "REACT_APP_API_URL": "http://localhost:3001"
   },
 
   // Mount the project directory
