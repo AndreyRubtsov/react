@@ -6,36 +6,17 @@
   "runServices": ["frontend", "backend"],
 
 
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [3000, 3001],
-  "portsAttributes": {
-    "3000": {
-      "label": "React Frontend",
-      "onAutoForward": "notify"
-    },
-    "3001": {
-      "label": "Node.js Backend API", 
-      "onAutoForward": "notify"
-    }
-  },
-  
-  // Additional port forwarding for Podman
-  "otherPortsAttributes": {
-    "3000": {
-      "label": "React Frontend",
-      "onAutoForward": "notify"
-    },
-    "3001": {
-      "label": "Node.js Backend API",
-      "onAutoForward": "notify"
-    }
-  },
+  // Host network mode - no port forwarding needed
+  // Services will be accessible directly on localhost
+  "forwardPorts": [],
+  "portsAttributes": {},
+  "otherPortsAttributes": {},
 
   // Use 'postCreateCommand' to run commands after the container is created.
   // "postCreateCommand": "cd frontend && npm install && cd ../backend && npm install",
 
   // Use 'postStartCommand' to run commands after the container starts
-  "postStartCommand": "cd frontend && npm run build",
+  "postStartCommand": "cd frontend && npm install && npm run build",
 
   // Configure tool-specific properties.
   "customizations": {
@@ -47,7 +28,9 @@
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
           "source.fixAll.eslint": "explicit"
-        }
+        },
+        "remote.autoForwardPorts": false,
+        "remote.autoForwardPortsSource": "hybrid"
       },
       "extensions": [
         // "esbenp.prettier-vscode",
@@ -78,7 +61,7 @@
     "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
   ],
 
-  // Port forwarding configuration
-  "appPort": [3000, 3001],
+  // Host network mode - services accessible directly on localhost
+  "runArgs": ["--network=host"],
   "overrideCommand": false
 }
