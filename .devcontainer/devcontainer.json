@@ -1,16 +1,26 @@
 {
-  "name": "Fullstack React + Node.js Development",
-  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
-  
-  // Features to add to the dev container. More info: https://containers.dev/features.
-  "features": {
-    "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/devcontainers/features/github-cli:1": {}
-  },
+  "name": "Fullstack React + Node.js Development (Podman Only)",
+  "dockerComposeFile": "podman-compose.yml",
+  "service": "frontend",
+  "workspaceFolder": "/workspace",
+  "runServices": ["frontend", "backend"],
+
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   "forwardPorts": [3000, 3001],
   "portsAttributes": {
+    "3000": {
+      "label": "React Frontend",
+      "onAutoForward": "notify"
+    },
+    "3001": {
+      "label": "Node.js Backend API", 
+      "onAutoForward": "notify"
+    }
+  },
+  
+  // Additional port forwarding for Podman
+  "otherPortsAttributes": {
     "3000": {
       "label": "React Frontend",
       "onAutoForward": "notify"
@@ -22,7 +32,7 @@
   },
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "npm install && cd frontend && npm install && cd ../backend && npm install",
+  // "postCreateCommand": "cd frontend && npm install && cd ../backend && npm install",
 
   // Use 'postStartCommand' to run commands after the container starts
   "postStartCommand": "cd frontend && npm run build",
@@ -40,22 +50,22 @@
         }
       },
       "extensions": [
-        "esbenp.prettier-vscode",
-        "dbaeumer.vscode-eslint",
-        "bradlc.vscode-tailwindcss",
-        "ms-vscode.vscode-typescript-next",
-        "formulahendry.auto-rename-tag",
-        "christian-kohler.path-intellisense",
-        "ms-vscode.vscode-json",
-        "ms-vscode.vscode-node-debug2",
-        "ms-vscode.js-debug-nightly",
-        "rangav.vscode-thunder-client"
+        // "esbenp.prettier-vscode",
+        // "dbaeumer.vscode-eslint",
+        // "bradlc.vscode-tailwindcss",
+        // "ms-vscode.vscode-typescript-next",
+        // "formulahendry.auto-rename-tag",
+        // "christian-kohler.path-intellisense",
+        // "ms-vscode.vscode-json",
+        // "ms-vscode.vscode-node-debug2",
+        // "ms-vscode.js-debug-nightly",
+        // "rangav.vscode-thunder-client"
       ]
     }
   },
 
   // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-  "remoteUser": "node",
+  "remoteUser": "root",
 
   // Set environment variables
   "containerEnv": {
@@ -63,11 +73,12 @@
     "REACT_APP_API_URL": "http://localhost:3001"
   },
 
-  // Mount the project directory
+  // Additional configuration for Podman
   "mounts": [
     "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
   ],
 
-  // Set the working directory
-  "workspaceFolder": "/workspace"
+  // Port forwarding configuration
+  "appPort": [3000, 3001],
+  "overrideCommand": false
 }

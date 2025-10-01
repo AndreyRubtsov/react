@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    volumes:
+      - ../:/workspace:Z
+    working_dir: /workspace
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_URL=http://localhost:3001
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    command: sleep infinity
+    user: "node"
+    security_opt:
+      - label=disable
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    volumes:
+      - ../:/workspace:Z
+    working_dir: /workspace
+    ports:
+      - "3001:3001"
+    expose:
+      - "3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+    networks:
+      - app-network
+    command: sleep infinity
+    user: "1000:1000"
+    security_opt:
+      - label=disable
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge

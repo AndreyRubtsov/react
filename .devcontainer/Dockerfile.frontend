@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye
+
+# Install additional features
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    sudo \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set the working directory
+WORKDIR /workspace
+
+# Install global dependencies
+RUN npm install -g npm@latest
+
+# Use the non-root user from base image
+USER node
+
+# Expose the frontend port
+EXPOSE 3000
