@@ -1,71 +1,52 @@
 {
-  "name": "Fullstack React + Node.js Development (Podman Only)",
+  "name": "DevContainer",
   "dockerComposeFile": "podman-compose.yml",
   "service": "frontend",
   "workspaceFolder": "/workspace",
-  "runServices": ["frontend", "backend"],
-
-
+  "runServices": [
+    "frontend",
+    "backend"
+  ],
   // Host network mode - no port forwarding needed
   // Services will be accessible directly on localhost
-  "forwardPorts": [3000, 3001],
+  "forwardPorts": [
+    3000,
+    3001
+  ],
   "portsAttributes": {},
   "otherPortsAttributes": {},
-
   // Use 'postCreateCommand' to run commands after the container is created.
-  // "postCreateCommand": "cd frontend && npm install && cd ../backend && npm install",
-
+  "postCreateCommand": "cd frontend && npm install",
   // Use 'postStartCommand' to run commands after the container starts
-  "postStartCommand": "cd frontend && npm install && npm run build",
-
+  // "postStartCommand": "cd frontend && npm install && npm run build",
   // Configure tool-specific properties.
   "customizations": {
     // Configure properties specific to VS Code.
     "vscode": {
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash",
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-          "source.fixAll.eslint": "explicit"
-        },
         "remote.autoForwardPorts": false,
-        "remote.autoForwardPortsSource": "hybrid",
-        "files.watcherExclude": {
-          "**/node_modules/**": true,
-          "**/dist/**": true,
-          "**/build/**": true
-        },
-        "search.exclude": {
-          "**/node_modules": true,
-          "**/bower_components": true,
-          "**/build": true,
-          "**/dist": true
-        }
+        "remote.autoForwardPortsSource": "hybrid"
       },
-      "extensions": [
-        "esbenp.prettier-vscode",
-        "dbaeumer.vscode-eslint",
-        "ms-vscode.vscode-typescript-next"
-      ]
+      "extensions": []
     }
   },
-
   // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
   "remoteUser": "root",
-
   // Set environment variables
   "containerEnv": {
     "NODE_ENV": "development",
-    "REACT_APP_API_URL": "http://localhost:3001"
+    "REACT_APP_API_URL": "http://localhost:3001",
+    "BROWSER": "none"
   },
-
   // Additional configuration for Podman
   "mounts": [
     "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
   ],
-
   // Host network mode - services accessible directly on localhost
-  "runArgs": ["--network=host"],
+  "runArgs": [
+    "--network=host"
+  ],
   "overrideCommand": false
 }

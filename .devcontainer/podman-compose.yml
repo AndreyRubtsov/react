@@ -1,18 +1,16 @@
 services:
   frontend:
     build:
-      context: .
-      dockerfile: Dockerfile.frontend
+      context: ../frontend
+      dockerfile: Dockerfile
     volumes:
       - ../:/workspace
     working_dir: /workspace/frontend
     environment:
       - NODE_ENV=development
       - REACT_APP_API_URL=http://localhost:3001
-    depends_on:
-      - backend
     network_mode: host
-    command: npm start
+    command: "sleep infinity"
     security_opt:
       - label=disable
     restart: unless-stopped
@@ -20,11 +18,14 @@ services:
     mem_limit: 2g
     mem_reservation: 1g
     memswap_limit: 4g
+    user: "1000:1000"
+    privileged: true
+    init: true
 
   backend:
     build:
-      context: .
-      dockerfile: Dockerfile.backend
+      context: ../backend
+      dockerfile: Dockerfile
     volumes:
       - ../:/workspace
     working_dir: /workspace/backend
@@ -40,3 +41,6 @@ services:
     mem_limit: 2g
     mem_reservation: 1g
     memswap_limit: 4g
+    user: "1000:1000"
+    privileged: true
+    init: true
