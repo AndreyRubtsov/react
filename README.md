@@ -32,6 +32,17 @@ npm run dev:frontend
 
 If you run into issues with the browser opening on Windows paths inside WSL/devcontainer, the container sets `BROWSER=none` to prevent attempts to spawn a browser.
 
+Troubleshooting
+- If you see RpcIpcMessagePortClosedError or other IPC/worker errors, try starting the dev server with the browser disabled (this was a helpful workaround in devcontainers/WSL):
+
+```bash
+# from repository root
+cd frontend
+BROWSER=none npm run dev:frontend
+```
+
+- Make sure you've rebuilt the devcontainer after updates (Command Palette -> Dev Containers: Rebuild Container) so the Node 18 image is used.
+
 ## Start backend
 
 ```bash
