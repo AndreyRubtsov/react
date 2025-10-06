@@ -1,12 +1,10 @@
-version: '3.8'
-
 services:
   frontend:
     build:
       context: .
       dockerfile: Dockerfile.frontend
     volumes:
-      - ../:/workspace:Z
+      - ../:/workspace
     working_dir: /workspace/frontend
     environment:
       - NODE_ENV=development
@@ -18,13 +16,17 @@ services:
     security_opt:
       - label=disable
     restart: unless-stopped
+    # Add memory limits to prevent OOM
+    mem_limit: 2g
+    mem_reservation: 1g
+    memswap_limit: 4g
 
   backend:
     build:
       context: .
       dockerfile: Dockerfile.backend
     volumes:
-      - ../:/workspace:Z
+      - ../:/workspace
     working_dir: /workspace/backend
     environment:
       - NODE_ENV=development
@@ -34,3 +36,7 @@ services:
     security_opt:
       - label=disable
     restart: unless-stopped
+    # Add memory limits to prevent OOM
+    mem_limit: 2g
+    mem_reservation: 1g
+    memswap_limit: 4g
